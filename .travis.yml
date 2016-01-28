@@ -44,7 +44,7 @@ matrix:
     # speed up Travis builds.
     ##########################################################################
     # Clang 3.5
-    - env: UNIT_TESTS=true COMPILER=clang++-3.5 BOOST_VERSION=default CMAKE_OPTIONS="-DBOOST_HANA_ENABLE_MEMCHECK=ON"
+    - env: UNIT_TESTS=true COMPILER=clang++-3.5 BOOST_VERSION=default CMAKE_OPTIONS="-DBOOST_HANA_ENABLE_SANITIZERS=ON"
       addons: &clang35
         apt:
           packages: ["clang-3.5", "valgrind"]
@@ -56,14 +56,14 @@ matrix:
             - llvm-toolchain-precise
 
     # Clang 3.6
-    - env: UNIT_TESTS=true COMPILER=clang++-3.6 BOOST_VERSION=default CMAKE_OPTIONS="-DBOOST_HANA_ENABLE_MEMCHECK=ON"
+    - env: UNIT_TESTS=true COMPILER=clang++-3.6 BOOST_VERSION=default CMAKE_OPTIONS="-DBOOST_HANA_ENABLE_SANITIZERS=ON"
       addons: &clang36
         apt:
           packages: ["clang-3.6", "valgrind"]
           sources: *sources
 
     # Clang 3.7
-    - env: UNIT_TESTS=true COMPILER=clang++-3.7 BOOST_VERSION=default CMAKE_OPTIONS="-DBOOST_HANA_ENABLE_MEMCHECK=ON"
+    - env: UNIT_TESTS=true COMPILER=clang++-3.7 BOOST_VERSION=default CMAKE_OPTIONS="-DBOOST_HANA_ENABLE_SANITIZERS=ON"
       addons: &clang37
         apt:
           packages: ["clang-3.7", "valgrind"]
