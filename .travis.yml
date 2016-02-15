@@ -44,7 +44,7 @@ matrix:
     # speed up Travis builds.
     ##########################################################################
     # Clang 3.5
-    - env: UNIT_TESTS=true COMPILER=clang++-3.5 BOOST_VERSION=default CMAKE_OPTIONS="-DBOOST_HANA_ENABLE_MEMCHECK=ON"
+    - env: UNIT_TESTS=true COMPILER=clang++-3.5 BOOST_VERSION=default ENABLE_SANITIZERS=ON CMAKE_OPTIONS="-DBOOST_HANA_ENABLE_MEMCHECK=ON"
       addons: &clang35
         apt:
           packages: ["clang-3.5", "valgrind"]
@@ -303,6 +303,7 @@ before_script:
   # Go back to the root of the project and setup the build directory
   ############################################################################
   - cd ${TRAVIS_BUILD_DIR}
+  - if [ "${ENABLE_SANITIZERS}" == "ON" ]; then export CXXFLAGS="${CXXFLAGS} -fsanitize=address,undefined,integer -fno-omit-frame-pointer"; fi
   - (mkdir build && cd build && cmake .. -DCMAKE_CXX_COMPILER=${COMPILER} -DBOOST_HANA_ENABLE_WERROR=ON ${CMAKE_OPTIONS})
 
 
