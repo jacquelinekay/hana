@@ -28,7 +28,6 @@ void Comparable_tests(Xs xs) {
                 ^implies^ hana::equal(a, c)
         );
     });
-
 }
 
 
@@ -57,14 +56,12 @@ int main() {
           ::boost::make_tuple()
         , ::boost::make_tuple(eq<0>{})
         , ::boost::make_tuple(eq<0>{}, eq<1>{})
-        , ::boost::make_tuple(eq<0>{}, eq<1>{}, eq<2>{})
     );
 
     auto ord_tuples = hana::make_tuple(
           ::boost::make_tuple()
         , ::boost::make_tuple(ord<0>{})
         , ::boost::make_tuple(ord<0>{}, ord<1>{})
-        , ::boost::make_tuple(ord<0>{}, ord<1>{}, ord<2>{})
     );
 
     Comparable_tests<hana::ext::boost::tuple_tag>(eq_tuples);
