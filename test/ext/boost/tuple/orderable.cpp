@@ -21,10 +21,6 @@ void Comparable_tests(Xs xs) {
     using hana::test::iff;
     using hana::test::implies;
 
-    hana::for_each(xs, [](auto x) {
-        static_assert(hana::Comparable<decltype(x)>::value, "");
-    });
-
     hana::test::foreach2(xs, [](auto a, auto b) {
 
         // reflexivity
@@ -109,10 +105,6 @@ template <typename S, typename Xs>
 void Orderable_tests(Xs xs) {
     using hana::test::implies;
     using hana::test::iff;
-
-    hana::for_each(xs, [](auto x) {
-        static_assert(hana::Orderable<decltype(x)>::value, "");
-    });
 
     hana::test::foreach2(xs, [](auto a, auto b) {
         // antisymmetry
