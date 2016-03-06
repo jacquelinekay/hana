@@ -18,26 +18,11 @@ template <int i>
 using ord = hana::test::ct_ord<i>;
 
 template <typename S, typename Xs>
-void Comparable_tests(Xs xs) {
-    using hana::test::iff;
-    using hana::test::implies;
-
-    // transitivity
-    hana::test::foreach3(xs, [](auto a, auto b, auto c) {
-        std::cout << "Comparable 1 pass" << std::endl;
-        BOOST_HANA_CHECK(
-            hana::and_(hana::equal(a, b), hana::equal(b, c))
-                ^implies^ hana::equal(a, c)
-        );
-    });
-
-}
-
-
-
+void Comparable_tests(Xs) { }
 
 
 struct invalid { };
+
 template <typename S, typename Xs>
 void Orderable_tests(Xs xs) {
     using hana::test::implies;
