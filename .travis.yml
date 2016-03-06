@@ -60,6 +60,7 @@ install:
 
   - if [[ -d ${DEPS_DIR}/boost ]]; then CMAKE_OPTIONS+=" -DBOOST_ROOT=${DEPS_DIR}/boost"; fi
 
+  - brew install valgrind
 
 before_script:
   ############################################################################
@@ -78,4 +79,4 @@ script:
   # Build and run the unit tests and examples.
   ############################################################################
   - clang++ -I include -I test/_include -std=c++14 test/ext/boost/tuple/orderable.cpp
-  - ./a.out
+  - valgrind --leak-check=full ./a.out
