@@ -17,34 +17,32 @@ using eq = hana::test::ct_eq<i>;
 template <int i>
 using ord = hana::test::ct_ord<i>;
 
-template <int i>
-struct for_each_n {
-    template <typename Xs, typename F>
-    constexpr auto operator()(Xs xs, F f) const {
-        hana::for_each(xs,
-            hana::compose(
-                hana::partial(for_each_n<i - 1>{}, xs),
-                hana::partial(hana::partial, f)
-            )
-        );
-    }
+auto foreach2 = [](auto xs, auto f) {
+    hana::for_each(xs,
+        hana::compose(
+            hana::partial(hana::for_each, xs),
+            hana::partial(hana::partial, f)
+        )
+    );
 };
 
-template <>
-struct for_each_n<1> {
-    template <typename Xs, typename F>
-    constexpr auto operator()(Xs xs, F f) const {
-        hana::for_each(xs, f);
-    }
-};
+template <typename Xs, typename F>
+void for_each3(Xs xs, F f) {
+    hana::for_each(xs,
+        hana::compose(
+            hana::partial(foreach2, xs),
+            hana::partial(hana::partial, f)
+        )
+    );
+}
 
 template <typename S, typename Eqs, typename Ords>
 void tests(Eqs eqs, Ords ords) {
-    for_each_n<3>{}(eqs, [](auto a, auto b, auto c) {
+    for_each3(eqs, [](auto a, auto b, auto c) {
         std::cout << "Comparable 1 pass" << std::endl;
     });
 
-    for_each_n<3>{}(ords, [](auto a, auto b, auto c) {
+    for_each3(ords, [](auto a, auto b, auto c) {
         std::cout << "Orderable 1 pass" << std::endl;
     });
 }
