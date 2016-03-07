@@ -19,11 +19,11 @@ using ord = hana::test::ct_ord<i>;
 
 template <typename S, typename Eqs, typename Ords>
 void tests(Eqs eqs, Ords ords) {
-    hana::test::foreach3(eqs, [](auto a, auto b, auto c) {
+    hana::test::foreach2(eqs, [](auto a, auto b) {
         std::cout << "Comparable 1 pass" << std::endl;
     });
 
-    hana::test::foreach3(ords, [](auto a, auto b, auto c) {
+    hana::test::foreach2(ords, [](auto a, auto b) {
         std::cout << "Orderable 1 pass" << std::endl;
     });
 }
