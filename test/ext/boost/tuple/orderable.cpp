@@ -32,14 +32,12 @@ void tests(Eqs eqs, Ords ords) {
 
 int main() {
     auto eq_tuples = hana::make_tuple(
-          ::boost::make_tuple(eq<0>{})
-        , ::boost::make_tuple(eq<0>{}, eq<1>{})
+          ::boost::make_tuple(eq<0>{}, eq<1>{})
         , ::boost::make_tuple(eq<0>{}, eq<1>{}, eq<2>{})
     );
 
     auto ord_tuples = hana::make_tuple(
-          ::boost::make_tuple(ord<0>{})
-        , ::boost::make_tuple(ord<0>{}, ord<1>{})
+          ::boost::make_tuple(ord<0>{}, ord<1>{})
         , ::boost::make_tuple(ord<0>{}, ord<1>{}, ord<2>{})
     );
 
