@@ -28,12 +28,9 @@ auto foreach2 = [](auto xs, auto f) {
 
 template <typename Xs, typename F>
 void for_each3(Xs xs, F f) {
-    hana::for_each(xs,
-        hana::compose(
-            hana::partial(foreach2, xs),
-            hana::partial(hana::partial, f)
-        )
-    );
+    hana::for_each(xs, [=](auto x) {
+        return hana::partial(foreach2, xs)(hana::partial(hana::partial, f)(x));
+    });
 }
 
 template <typename S, typename Eqs, typename Ords>
