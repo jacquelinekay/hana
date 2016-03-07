@@ -17,39 +17,28 @@ using eq = hana::test::ct_eq<i>;
 template <int i>
 using ord = hana::test::ct_ord<i>;
 
-template <typename S, typename Xs>
-void Comparable_tests(Xs xs) {
-    using hana::test::iff;
+struct invalid { };
+template <typename S, typename Eqs, typename Ords>
+void tests(Eqs eqs, Ords ords) {
     using hana::test::implies;
+    using hana::test::iff;
 
     // transitivity
-    hana::test::foreach3(xs, [](auto a, auto b, auto c) {
+    hana::test::foreach3(eqs, [](auto a, auto b, auto c) {
         std::cout << "Comparable 1 pass" << std::endl;
-        // auto ab = hana::equal(a, b);
-        // auto bc = hana::equal(b, c);
-        // auto ac = hana::equal(a, c);
-        // BOOST_HANA_CHECK(hana::and_(ab, bc) ^implies^ ac);
+        auto ab = hana::equal(a, b);
+        auto bc = hana::equal(b, c);
+        auto ac = hana::equal(a, c);
+        BOOST_HANA_CHECK(hana::and_(ab, bc) ^implies^ ac);
     });
 
-}
-
-
-
-
-
-struct invalid { };
-template <typename S, typename Xs>
-void Orderable_tests(Xs xs) {
-    using hana::test::implies;
-    using hana::test::iff;
-
     // transitivity
-    hana::test::foreach3(xs, [](auto a, auto b, auto c) {
+    hana::test::foreach3(ords, [](auto a, auto b, auto c) {
         std::cout << "Orderable 1 pass" << std::endl;
-        // auto ab = hana::less_equal(a, b);
-        // auto bc = hana::less_equal(b, c);
-        // auto ac = hana::less_equal(a, c);
-        // BOOST_HANA_CHECK(hana::and_(ab, bc) ^implies^ ac);
+        auto ab = hana::less_equal(a, b);
+        auto bc = hana::less_equal(b, c);
+        auto ac = hana::less_equal(a, c);
+        BOOST_HANA_CHECK(hana::and_(ab, bc) ^implies^ ac);
     });
 }
 
@@ -70,6 +59,5 @@ int main() {
         , ::boost::make_tuple(ord<0>{}, ord<1>{}, ord<2>{})
     );
 
-    Comparable_tests<hana::ext::boost::tuple_tag>(eq_tuples);
-    Orderable_tests<hana::ext::boost::tuple_tag>(ord_tuples);
+    tests<hana::ext::boost::tuple_tag>(eq_tuples, ord_tuples);
 }
