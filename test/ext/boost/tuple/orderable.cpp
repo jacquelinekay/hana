@@ -19,7 +19,7 @@ using ord = hana::test::ct_ord<i>;
 
 auto foreach2 = [](auto xs, auto f) {
     hana::for_each(xs, [=](auto x) {
-        return hana::for_each(xs, hana::partial(hana::partial, f)(x));
+        return hana::partial(hana::for_each, xs)(hana::partial(hana::partial, f)(x));
     });
 };
 
