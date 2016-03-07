@@ -17,19 +17,15 @@ using eq = hana::test::ct_eq<i>;
 template <int i>
 using ord = hana::test::ct_ord<i>;
 
-auto foreach2 = [](auto xs, auto f) {
-    hana::for_each(xs,
-        hana::compose(
-            hana::partial(hana::for_each, xs),
-            hana::partial(hana::partial, f)
-        )
-    );
-};
-
 template <typename Xs, typename F>
 void for_each3(Xs xs, F f) {
     hana::for_each(xs, [=](auto x) {
-        return foreach2(xs, hana::partial(f, x));
+        hana::for_each(xs,
+            hana::compose(
+                hana::partial(hana::for_each, xs),
+                hana::partial(hana::partial, hana::partial(f, x))
+            )
+        );
     });
 }
 
