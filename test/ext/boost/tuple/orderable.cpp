@@ -17,28 +17,14 @@ using eq = hana::test::ct_eq<i>;
 template <int i>
 using ord = hana::test::ct_ord<i>;
 
-struct invalid { };
 template <typename S, typename Eqs, typename Ords>
 void tests(Eqs eqs, Ords ords) {
-    using hana::test::implies;
-    using hana::test::iff;
-
-    // transitivity
     hana::test::foreach3(eqs, [](auto a, auto b, auto c) {
         std::cout << "Comparable 1 pass" << std::endl;
-        auto ab = hana::equal(a, b);
-        auto bc = hana::equal(b, c);
-        auto ac = hana::equal(a, c);
-        BOOST_HANA_CHECK(hana::and_(ab, bc) ^implies^ ac);
     });
 
-    // transitivity
     hana::test::foreach3(ords, [](auto a, auto b, auto c) {
         std::cout << "Orderable 1 pass" << std::endl;
-        auto ab = hana::less_equal(a, b);
-        auto bc = hana::less_equal(b, c);
-        auto ac = hana::less_equal(a, c);
-        BOOST_HANA_CHECK(hana::and_(ab, bc) ^implies^ ac);
     });
 }
 
